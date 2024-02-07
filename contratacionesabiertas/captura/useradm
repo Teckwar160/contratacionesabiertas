@@ -50,11 +50,11 @@ if ( typeof process.argv[2] !== 'undefined'){
                                     replace: '*'
                                 },
                                 isAdmin: {
-                                    description: '¿El usuario es administrador? (t = Sí; f = No)',
+                                    description: '¿El usuario es administrador? (true = Sí; false = No)',
                                     format: "boolean",
                                     required: true,
                                     default: false,
-                                    message: 'Propocione una respuesta válida (t = Sí; f = No)'
+                                    message: 'Propocione una respuesta válida (true = Sí; false = No)'
                                 },
                                 email: {
                                     description: 'Ingrese su email',
