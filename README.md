@@ -13,4 +13,3 @@ Es una iniciativa internacional promovida por **Open Contracting Partnership (OC
 - Base de datos relacional: PostgreSQL 16.
 - Base de datos de documentos: MongoDB 7.
 - Lenguaje de programación: NodeJS 21.
-- Servidor web: NGINX 1.18
