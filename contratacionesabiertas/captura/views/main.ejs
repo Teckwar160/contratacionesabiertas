@@ -76,8 +76,8 @@
                     Historial <i class="fa fa-history"></i></button>
                 <button class="btn btn-primary" style="margin-bottom: 4px;" data-action="validate_process" data-contractingprocess_id="<%= cp.id %>"  data-tooltip="crear_proceso" title="Realizar proceso de validación de la contratación.">
                     Validar <i class="fa fa-check-square-o"></i></button>
-                <button class="btn btn-primary" style="margin-bottom: 4px;" data-action="import" data-contractingprocess_id="<%= cp.id %>"  data-toggle="modal" data-target="#genericModal" data-tooltip="crear_proceso" title="Importar contratación.">
-                    Importar <i class="fa fa-upload"></i></button>
+                <!--<button class="btn btn-primary" style="margin-bottom: 4px;" data-action="import" data-contractingprocess_id="<%= cp.id %>"  data-toggle="modal" data-target="#genericModal" data-tooltip="crear_proceso" title="Importar contratación.">
+                    Importar <i class="fa fa-upload"></i></button>-->
                 <button class="btn btn-primary" style="margin-bottom: 4px;" data-action="data_pnt" data-contractingprocess_id="<%= cp.id %>"  data-toggle="modal" data-target="#genericModal" data-tooltip="crear_proceso" title="Datos PNT">
                     Datos PNT </button>
             </div>
@@ -110,6 +110,8 @@
             para obtener más información sobre el Estándar de Datos de Contrataciones Abiertas.</p>
         <p>
             <button id = "nuevo_jumbo" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva contratación </button>
+            <button class="btn btn-primary" data-action="bulk-load"  data-toggle="modal" data-target="#genericModal" data-tooltip="crear_proceso" title="Importar contratación.">
+                <i class="fa fa-upload"></i> Carga masiva </button>
             <button class="btn btn-primary" data-toggle="modal" data-target="#genericModal" data-action="search" data-user_id="<%= user.id %>"> <i class="fa fa-search"></i> Buscar contratación </button>
             <button class="btn btn-primary" data-toggle="modal" data-target="#genericModal" data-action="manual"> <i class="fa fa-book"></i> Manual</button>
         </p>

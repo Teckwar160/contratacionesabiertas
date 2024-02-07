@@ -3056,6 +3056,7 @@ $('#genericModal').on('show.bs.modal', function (event) {
             modal.find('#modal_content').html("");
             loadModalClarificationMeetingList(modal, button);
        break;
+       /*
        case 'import':
             var cp = button.data('contractingprocess_id');
             var stage = button.data('stage');
@@ -3101,6 +3102,105 @@ $('#genericModal').on('show.bs.modal', function (event) {
                                 alert(err.responseText || ' No se ha podido realizar la importación');
                             }
                         });
+                    }
+                });
+            });
+        break;
+        */
+        case 'bulk-load':
+            var cp;
+            var stage = button.data('stage');
+            var id = button.data('id');
+
+            // Selección de archivos
+            modal.find('.modal-title').text('Importación');
+            modal.find('#modal_content').html("");
+            modal.find('#modal_content').load(`/main/${cp}/import/${stage}/${id}`, () =>  {
+
+                let loading = () => {
+                    if(!importing){
+                        modal.find('.import-container').addClass('hidden');
+                        modal.find('h3').removeClass('hidden');
+                    } else {
+                        modal.find('.import-container').removeClass('hidden');
+                        modal.find('h3').addClass('hidden');
+                    }
+                }
+            
+                modal.find('#frmImport').submit(async function (e) {
+                    e.preventDefault();
+                    if (!importing) {
+                        loading();
+                        // Obtenemos los JSON
+                        var inputFiles = $(this).find('input:file').get(0).files;
+                
+                        // Arreglo que contendra los ids
+                        var ids = [];
+                
+                        // Función que realiza la petición AJAX y devuelve una promesa
+                        function getId() {
+                            return new Promise(function (resolve, reject) {
+                                $.post('/bulk-load-get-id').done(function (data) {
+                                    // Resolvemos la promesa con el valor de 'id'
+                                    resolve(data.id);
+                                }).fail(function (error) {
+                                    // En caso de error, rechazamos la promesa con el error
+                                    reject(error);
+                                });
+                            });
+                        }
+                
+                        // Función que realiza la petición AJAX de importación
+                        async function makeImport(cp) {
+                            var formData = new FormData();
+                            formData.append('datafile', inputFiles[i]);
+                            
+                
+                            try {
+                                // Utilizamos el valor de 'cp' en la URL de la siguiente petición AJAX
+                                await $.ajax({
+                                    url: `/main/${cp}/import/${stage}/${id}`,
+                                    type: 'post',
+                                    data: formData,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    error: function (err) {
+                                        importing = false;
+                                        alert(err.responseText || ' No se ha podido realizar la importación');
+                                    }
+                                });
+
+                                // Guardamos el id
+                                ids.push(cp);
+
+                            } catch (error) {
+                                console.error("Error en una o más peticiones AJAX: ", error);
+                            }
+                        }
+                
+                        for (var i = 0; i < inputFiles.length; i++) {
+                            try {
+                                // Esperamos a que se complete la petición AJAX antes de continuar
+                                var cp = await getId();
+                
+                                // Realizamos la petición de importación
+                                await makeImport(cp);
+                
+                                // Agregamos un retraso de 1 segundo (1000 milisegundos) entre las peticiones
+                                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                                // Verificamos si es el último archivo y realizamos la acción deseada
+                                if (i === inputFiles.length - 1) {
+                                    importing = true;
+                                    alert("Se crearón las siguientes contrataciones: "+ids.join(', '));
+                                    location.reload();
+                                }
+                
+                            } catch (error) {
+                                console.error("Error en una o más peticiones AJAX: ", error);
+                            }
+                        }
                     }
                 });
             });

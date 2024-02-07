@@ -897,6 +897,68 @@ console.log("/new-process");
     });
 });
 
+router.post('/bulk-load-get-id', isAuthenticated, function (req, res) {
+    db_conf.edca_db.tx(async function (t) {
+
+        const allMetadata = await db_conf.edca_db.manyOrNone('select * from metadata');
+        const ocid = await getPrefixOCID();
+        const metadata = {
+            licencia_url: '',
+            politica_url: ''
+        };
+        if(allMetadata){
+            allMetadata.map(m => metadata[m.field_name] = m.value);
+        }
+        metadata['ocid'] = (ocid ? ocid.value  || 'CONTRATACION': 'CONTRATACION') + '-';
+
+        return t.one("insert into ContractingProcess (fecha_creacion, hora_creacion, ocid, stage, publicationpolicy, license ) values (current_date, current_time, concat( ${ocid}, current_date,'_', current_time), null, ${politica_url}, ${licencia_url}) returning id", metadata)
+            .then(function (process) {
+
+                return t.batch([
+                    process = { id : process.id },
+                    t.one("insert into Planning (ContractingProcess_id) values ($1) returning id as planning_id", process.id),
+                    t.one("insert into Tender (ContractingProcess_id) values ($1) returning id as tender_id", [process.id]),
+                    t.one("insert into Award (ContractingProcess_id) values ($1) returning id as award_id", [process.id]),
+                    t.one("insert into Contract (ContractingProcess_id) values ($1) returning id as contract_id", [process.id]),
+                    //t.one("insert into Buyer (ContractingProcess_id) values ($1) returning id as buyer_id",[process.id]),
+                    t.one("insert into Publisher (ContractingProcess_id, name, scheme, uid, uri) values ($1, $2, $3, $4, $5) returning id as publisher_id", [
+                        process.id,
+                        req.user.publisherName,
+                        req.user.publisherScheme,
+                        req.user.publisherUid,
+                        req.user.publisherUri
+                    ]),
+                    t.one("insert into user_contractingprocess(user_id, contractingprocess_id) values ($1,$2) returning id", [req.user.id, process.id]),
+                    //t.one("insert into tags values (default, $1, true, false, false, false, false, false, false, false, false, false,false, false, false, false, false, false) returning id", [ process.id ]),
+                    t.one("insert into links(contractingprocess_id) values ($1) returning id", [process.id])
+                ]);
+
+            }).then(function (info) {
+                return t.batch([
+                    //process, planning, tender, award, contract, buyer, publisher,
+                    { contractingprocess : { id: info[0].id } },
+                    { planning : { id: info[1].planning_id } },
+                    { tender : { id: info[2].tender_id } },
+                    { awards: [{ id:info[3].award_id }] },
+                    { contracts: [{ id:info[4].contract_id }] },
+                    //{ buyer : { id: info[5].buyer_id } },
+                    { publisher: { id: info[6].publisher_id } },
+                    t.one("insert into Budget (ContractingProcess_id, Planning_id) values ($1, $2 ) returning id as budget_id", [info[0].id, info[1].planning_id]),
+                    //t.one("insert into ProcuringEntity (contractingprocess_id, tender_id) values ($1, $2) returning id as procuringentity_id",[info[0].id, info[2].tender_id]),
+                    t.one("insert into Implementation (ContractingProcess_id, Contract_id ) values ($1, $2) returning id as implementation_id", [info[0].id, info[4].contract_id])
+                ]);
+            });
+
+    }).then(function (data) {
+        //Regresamos el ID a utilizar
+        res.json({"id": `${data[0].contractingprocess.id}`});
+
+    }).catch(function (error) {
+        console.log("ERROR: ", error);
+        res.json({"id": 0});
+    });
+});
+
 var updateStageGlobal = async (cpid) => {
     try {
         let stage = 1;
