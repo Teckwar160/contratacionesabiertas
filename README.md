@@ -1,3 +1,4 @@
+<div style="text-align: justify;">
 # **Contrataciones Abiertas**
 
 Es una iniciativa internacional promovida por **Open Contracting Partnership (OCP)** que tiene como objetivo **incrementar la oferta y la calidad de la información** relacionada con los procedimientos de **contratación** que realizan los **gobiernos**; además de potenciar su comparabilidad y utilidad mediante la adopción de su principal instrumento: el **Estándar de Datos de Contrataciones Abiertas (EDCA, u OCDS por su siglas en inglés)**, para propiciar procesos de participación con diferentes actores incluyendo sociedad civil, periodistas y el sector privado con el fin de mejorar servicios y obras públicas.
@@ -14,3 +15,4 @@ Es una iniciativa internacional promovida por **Open Contracting Partnership (OC
 - Base de datos de documentos: MongoDB 7.
 - Lenguaje de programación: NodeJS 21.
 - Servidor web: NGINX 1.18
+</div>
