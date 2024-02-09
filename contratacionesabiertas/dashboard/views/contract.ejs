@@ -288,16 +288,16 @@ var indicador = generateIcons(status);
                 </div>
                 <div id="contract-content" class="col-md-8 col-sm-8 col-xs-12">
                     <% if ( current_stage == 'licitacion') { %>
-                    <% include stages/tender %>
-                    <%} else if ( current_stage == 'adjudicacion' ) {%>
-                    <% include stages/awards %>
-                    <%} else if ( current_stage == 'contratacion'){%>
-                    <% include stages/contracts %>
-                    <%} else if ( current_stage == 'implementacion'){%>
-                    <% include stages/implementation %>
-                    <%} else {%>
-                    <% include stages/planning %>
-                    <%}%>
+                    <%- include('stages/tender') %>
+                    <% } else if ( current_stage == 'adjudicacion' ) { %>
+                    <%- include('stages/awards') %>
+                    <% } else if ( current_stage == 'contratacion'){ %>
+                    <%- include('stages/contracts') %>
+                    <% } else if ( current_stage == 'implementacion'){ %>
+                    <%- include ('stages/implementation') %>
+                    <% } else { %>
+                    <%- include ('stages/planning') %>
+                    <% } %>
                 </div>
             </div>
         </div>
