@@ -502,7 +502,12 @@ CREATE TABLE public.budgetclassifications (
     spendingtype_description text,
     budgetsource_description text,
     region_description text,
-    portfoliokey_description text
+    portfoliokey_description text,
+    strategicobjective text,
+    requestingunit text,
+    specificactivity text,
+    modified numeric,
+    executed numeric
 );
 
 
