@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-
+var wkhtmltopdf = require('wkhtmltopdf');
 var pgp = require('pg-promise')();
 var fs = require('fs');
 var ejs = require('ejs');
-var pdf = require('html-pdf');
 ////////////////////////////////////
 const db = require('../dash_config');
 var edca_db = db.dashboard;
@@ -518,49 +517,45 @@ router.get('/contrato/:cpid/download', function (req, res) {
                 }) // cabecera
             ]);
         }).then(function (data) {
-            Object.assign(result.planning, data[0]);
-            Object.assign(result.tender, data[1]);
-            Object.assign(result.awards, data[2]);
-            Object.assign(result.contracts, data[3]);
-            Object.assign(result.implementations, data[4]);
-            Object.assign(result.header, data[5]);
+    	    Object.assign(result.planning, data[0]);
+    	    Object.assign(result.tender, data[1]);
+    	    Object.assign(result.awards, data[2]);
+    	    Object.assign(result.contracts, data[3]);
+    	    Object.assign(result.implementations, data[4]);
+    	    Object.assign(result.header, data[5]);
 
-              fs.readFile('contracting_form.html', 'utf8', (err, html) => {
+    	    fs.readFile('contracting_form.html', 'utf8', (err, html) => {
+        	if (err) {
+            	    html = '';
+        	}
 
-                var options = { format: 'Letter' };
+        	if (html != '') {
+            	    var compiled = ejs.compile(html);
+            	    html = compiled(result);
+        	}
 
-                if (err) {
-                    html = '';
-                }
+        	// Configura las opciones para wkhtmltopdf
+        	const options = {
+            	    pageSize: 'A4',
+        	};
 
-                if (html != '') {
-                    var compiled = ejs.compile(html);
-                    html = compiled(result);
-                }
-        
-                pdf.create(html, options).toStream((err, stream) => {
-                    var buffers = [];
-        
-                    try{
-                        stream.on('data', buffers.push.bind(buffers));
-            
-                        stream.on('end', () => {
-                            var data = Buffer.concat(buffers);
-            
-                            res.writeHead(200, {
-                                'Content-Type': 'application/pdf',
-                                'Content-disposition': `attachment;filename=record_${ocid}.pdf`,
-                                'Content-Length': data.byteLength
-                            });
-                
-                            res.end(data);
-                        });
-                    }catch(e){
-                        console.log(e);
-                    }
-                });
+        	// Convierte el HTML a PDF usando wkhtmltopdf
+        	wkhtmltopdf(html, options, function(err, stream) {
+            	if (err) {
+                    res.status(500).send('Error al generar el PDF');
+                    return;
+            	}
+
+            	// Envía el PDF al cliente como una descarga
+            	res.writeHead(200, {
+                    'Content-Type': 'application/pdf',
+                    'Content-disposition': `attachment;filename=record_${ocid}.pdf`,
+            	});
+
+            	stream.pipe(res); // Envía el PDF al cliente
             });
-        }).catch(function (error) {
+    	});
+    }).catch(function (error) {
             res.send(result);
         });
     }).catch(function (error) {
