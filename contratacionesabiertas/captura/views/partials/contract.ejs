@@ -104,14 +104,14 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p>
-                            <label data-tooltip="crear_proceso" title='Fecha de inicio del periodo.'>Fecha de inicio<!--Period start date--></label>
-                            <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control" value="<%= contract.period_startdate != null ? getMString(contract.period_startdate):''%>">
+                            <label data-tooltip="crear_proceso" title='Fecha de inicio del periodo.'>Fecha de inicio *<!--Period start date--></label>
+                            <input type="text" id= "cont_date1" name  = "period_startdate" class="form-control" value="<%= contract.period_startdate != null ? getMString(contract.period_startdate):''%>" required>
                         </p>
                     </div>
                     <div class="col-sm-6">
                         <p>
-                            <label data-tooltip="crear_proceso" title='Fecha de conclusión del periodo.'>Fecha fin<!--Period end date--></label>
-                            <input type="text" id= "cont_date2" class="form-control" name= "period_enddate" value = "<%= (contract.period_enddate != null)? getMString(contract.period_enddate):''%>">
+                            <label data-tooltip="crear_proceso" title='Fecha de conclusión del periodo.'>Fecha fin *<!--Period end date--></label>
+                            <input type="text" id= "cont_date2" class="form-control" name= "period_enddate" value = "<%= (contract.period_enddate != null)? getMString(contract.period_enddate):''%>" required>
                         </p>
                     </div>
                 </div>
@@ -253,8 +253,8 @@
 				
                 <div>
                     <p>
-                        <label data-tooltip="crear_proceso" title='Fecha establecida en el contrato, la cual será aquélla en que el proveedor o contratista hubiere firmado.'>Fecha de firma del contrato<!--Date signed--></label>
-                        <input type="text" id="cont_date3" class="form-control" name="datesigned" value = "<%= (contract.datesigned != null)? getMString(contract.datesigned):''%>">
+                        <label data-tooltip="crear_proceso" title='Fecha establecida en el contrato, la cual será aquélla en que el proveedor o contratista hubiere firmado.'>Fecha de firma del contrato *<!--Date signed--></label>
+                        <input type="text" id="cont_date3" class="form-control" name="datesigned" value = "<%= (contract.datesigned != null)? getMString(contract.datesigned):''%>" required>
                     </p>
                 </div>
                 
