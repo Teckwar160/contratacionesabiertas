@@ -81,16 +81,17 @@
 
 <!-- ########################################################################## MODIFICADO ##################################### -->
     <p><label>Esquema *<!--Identifier scheme--></label>
-        <select name="identifier_scheme" class="form-control" onChange="validarVacio(this);" id='identifier_scheme' required>
+        <select name="identifier_scheme" class="form-control" id='identifier_scheme' required>
             <option value="" <%= '' == data.identifier_scheme ? 'selected' : '' %>>Seleccionar un esquema</option>
             <option value="MX-RFC" <%= 'MX-RFC' == data.identifier_scheme ? 'selected' : '' %>>MX-RFC</option>
+            <option value="MX-INTERNO" <%= 'MX-INTERNO' == data.identifier_scheme ? 'selected' : '' %>>MX-INTERNO</option>
         </select>
         <!-- <input name = "identifier_scheme" class="form-control" type="text" value="<%= data.identifier_scheme %>" onChange="validarVacio(this);" required></p> -->
 <!-- ########################################################################## MODIFICADO ##################################### -->
 
 
     <p><label>Identificador<!--Identifier ID--></label>
-        <input name = "identifier_id" class="form-control" type="text" value="<%= data.identifier_id %>" required></p>
+        <input name = "identifier_id" class="form-control" type="text" id="identifier_id" onblur="validarIdentificador();" value="<%= data.identifier_id %>" required></p>
 
     <hr>
     
@@ -466,5 +467,25 @@
     $('#address_locationname').change(function() {
         $("#address_localitykey").val($('#address_locationname').val());
     });
+
+    function validarIdentificador() {
+        const identifierScheme = document.getElementById('identifier_scheme').value;
+        const isNaturalPerson = document.getElementById('naturalperson').selectedIndex === 0;
+        const identifierInput = document.getElementById('identifier_id');
+        const identifierValue = identifierInput.value.trim();
+
+        // Solo valida si el campo de identificador no está vacío
+        if (identifierValue === "") return;
+        // Validación según el esquema y tipo de persona
+        if (identifierScheme === "MX-RFC") {
+            if (isNaturalPerson && identifierValue.length !== 13) {
+                alert("La longitud del identificador no coincide con el esquema seleccionado. Para personas físicas, debe ser de 13 caracteres.");
+                identifierInput.value = "";
+            } else if (!isNaturalPerson && identifierValue.length !== 12) {
+                alert("La longitud del identificador no coincide con el esquema seleccionado. Para personas morales, debe ser de 12 caracteres.");
+                identifierInput.value = "";
+            }
+        }
+}
 
 </script>
