@@ -99,16 +99,17 @@
     <!-- ########################################################################## MODIFICADO ##################################### -->
     <p><label data-tooltip="crear_proceso" title='Los identificadores del actor deben extraerse de una lista de identificadores existente. El campo esquema se utiliza para indicar el nombre de la lista o registro del que se extrae el identificador. Este valor debe obtenerse de la lista de códigos "Esquema de identificación de la organización".'>
     Esquema *<!--Identifier scheme--></label>
-        <select name="identifier_scheme" class="form-control" onChange="validarVacio(this);" id='identifier_scheme' required>
+        <select name="identifier_scheme" class="form-control" id='identifier_scheme' required>
             <option value="">Seleccionar un esquema</option>
             <option value="MX-RFC">MX-RFC</option>
+            <option value="MX-INTERNO">MX-INTERNO</option>
         </select>
     <!-- ########################################################################## MODIFICADO ##################################### -->
 
 
     <p><label data-tooltip="crear_proceso" title='El identificador de la persona física o moral, o del área de la institución pública.'>
     Identificador <!--Identifier id--></label>
-        <input name="identifier_id" type="text" class="form-control" required></p>
+        <input name="identifier_id" type="text" class="form-control" id="identifier_id" onblur="validarIdentificador();" required></p>
 
     <hr>
     
@@ -378,5 +379,26 @@
         else
             $('[name="partyid"]').val(scheme + '-' + id);
     });
+
+    function validarIdentificador() {
+    const identifierScheme = document.getElementById('identifier_scheme').value;
+    const isNaturalPerson = document.getElementById('naturalperson').selectedIndex === 1;
+    const identifierInput = document.getElementById('identifier_id');
+    const identifierValue = identifierInput.value.trim();
+
+    // Solo valida si el campo de identificador no está vacío
+    if (identifierValue === "") return;
+
+    // Validación según el esquema y tipo de persona
+    if (identifierScheme === "MX-RFC") {
+        if (isNaturalPerson && identifierValue.length !== 13) {
+            alert("La longitud del identificador no coincide con el esquema seleccionado. Para personas físicas, debe ser de 13 caracteres.");
+            identifierInput.value = "";
+        } else if (!isNaturalPerson && identifierValue.length !== 12) {
+            alert("La longitud del identificador no coincide con el esquema seleccionado. Para personas morales, debe ser de 12 caracteres.");
+            identifierInput.value = "";
+        }
+    }
+}
 
 </script>
