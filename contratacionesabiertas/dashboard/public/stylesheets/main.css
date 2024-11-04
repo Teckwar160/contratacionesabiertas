@@ -4,11 +4,11 @@
     GENERAL STYLES
 *********************************/
 html, body                                  { height: 100%; margin: 79px 0 0; padding: 0; font-size: 14px; line-height: 1.6em; font-family: "Open Sans"; font-weight: 300;}
-a                                           { color: #0c9; cursor: pointer; }
+a                                           { color: #0094A4; cursor: pointer; }
 p                                           { margin-bottom: 10px; color: #4a4a4a; font-weight: 300; line-height: 24px; }
 img                                         { max-width: 100%; }
 ul, ol                                      { margin-left: 20px; padding-left: 10px; }
-a:hover                                     { text-decoration: none; color: #05aa81; }
+a:hover                                     { text-decoration: none; color: #05777C; }
 a:focus, a:active, a:visited                { text-decoration: none; border: none; outline: 0; }
 .container-fluid                            { max-width: 1100px; }
 .btn                                        { padding: 10px; border: none; border-radius: 0; }
@@ -37,7 +37,7 @@ p.small                                     { font-size: 11px; }
 .bg-container                               { position: relative; }
 .bg-container .bg                           { background-color: #474747; position: absolute; left: 0; top: 0; bottom: 0; right: 75.9%; }
 h1                                          { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #d8d8d8; position: relative; font-size: 24px; font-weight: 600; color: #545454; }
-h1:after                                    { content: ''; width: 40px; position: absolute; bottom: -6px; left: 0; border-bottom: solid 5px #0c9; }
+h1:after                                    { content: ''; width: 40px; position: absolute; bottom: -6px; left: 0; border-bottom: solid 5px #0094A4; }
 p.big                                       { margin-bottom: 30px; font-size: 24px; line-height: 42px; }
 .read-more                                  { font-size: 11px; }
 .read-more > i                              { margin-left: 0px; }
@@ -49,7 +49,7 @@ p.big                                       { margin-bottom: 30px; font-size: 24
 .data-table table > tbody > tr > td         { font-size: 14px; }
 .data-table table > tbody > tr > td > a     { font-weight: 500; color: #0c9; }
 .btn                                        { border-radius: 3px; }
-.btn-primary                                { background-color: #0c9; border: none; }
+.btn-primary                                { background-color: #0094A4; border: none; }
 .btn-primary:hover,
 .btn-primary:active                         { background-color: #05aa81; }
 .nav-pills                                  { overflow: hidden; }
@@ -60,7 +60,7 @@ p.big                                       { margin-bottom: 30px; font-size: 24
 .nav-pills > li > a:hover,
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus            { background-color: #0c9; font-weight: 600; color: #fff; }
+.nav-pills > li.active > a:focus            { background-color: #0094A4; font-weight: 600; color: #fff; }
 .statistics ul.chart-legend                 { padding: 30px 0 0; list-style: none; padding-top: 10px }
 .statistics ul.chart-legend > li            { margin-bottom: 10px; font-size: 11px; font-weight: 300; color: #000; }
 .statistics ul > li > .circle               { display: inline-block; width: 16px; height: 16px; margin-right: 10px; border-radius: 50%; position: relative; top: 2.5px; }
@@ -101,7 +101,7 @@ p.big                                       { margin-bottom: 30px; font-size: 24
 .pagination > li:hover > a,
 .pagination > li > a:hover,
 .pagination > li.active > a,
-.pagination > li.active > a:hover           { background-color: #d8d8d8; border-color: #d8d8d8; color: #a1a1a1; }
+.pagination > li.active > a:hover           { background-color: #F2F3F9; border-color: #F2F3F9; color: #AFB5D8; }
 .pagination > li > a                        { color: #0c9; }
 
 /*********************************
@@ -166,7 +166,7 @@ p.big                                       { margin-bottom: 30px; font-size: 24
 .breadcrumb > li > a                        { display: inline; color: #545454; text-transform: none; }
 .breadcrumb > li.active > a,
 .breadcrumb > li:last-child > a,
-.breadcrumb > li > a:hover                  { color: #0c9; }
+.breadcrumb > li > a:hover                  { color: #0094A4; }
 .breadcrumb > li:last-child > a             { pointer-events: none; }
 
 /*********************************
