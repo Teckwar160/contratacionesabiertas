@@ -75,7 +75,7 @@
                 <td>${rec.pnt_date || ''}</td>
                 <td>${rec.pnt_version || ''}</td>-->
                 <td class="text-center">
-                    <div class="btn-group" style="width:250px">
+                    <div class="btn-group" style="width:208px">
                         <button class="btn btn-primary" type="button" data-validate>Validar</button>
                         <button class="btn btn-primary" type="button" data-edit>Editar</button>
                         ${(rec.valid && (!rec.published || rec.updated) ? '<button class="btn btn-primary" type="button" data-publish>Publicar</button>' : '')}
