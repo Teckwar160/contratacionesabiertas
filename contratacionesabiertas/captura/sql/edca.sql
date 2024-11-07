@@ -507,7 +507,9 @@ CREATE TABLE public.budgetclassifications (
     requestingunit text,
     specificactivity text,
     modified numeric,
-    executed numeric
+    executed numeric,
+    committed numeric,
+    approved numeric
 );
 
 
