@@ -27,8 +27,8 @@
                         $tr.find('button[data-validate]').click(() => validateProcess(rec.id));
                         $tr.find('button[data-edit]').click(() => location = '/main/' + rec.id);
                         $tr.find('button[data-publish]').click(() => publish(rec.id));
-                        $tr.find('button[data-pnt]').click(() => sendPnt(rec.id));
-                        $tr.find('button[data-data_pnt]').click(() => showDataPnt(rec.id));
+                        //$tr.find('button[data-pnt]').click(() => sendPnt(rec.id));
+                        //$tr.find('button[data-data_pnt]').click(() => showDataPnt(rec.id));
                         $tr.appendTo($tbody);
                     });
                 },
@@ -67,20 +67,20 @@
                 <td>${rec.published_version || ''}</td>
                 <td>${rec.updated_date || ''}</td>
                 <td>${rec.updated_version || ''}</td>
-                <td>${(
+                <!--<td>${(
                     rec.pnt_published ?
                         rec.pnt_version !== rec.published_version ? '<label class="label label-warning">No actualizado</label>' : '<label class="label label-success">Publicado</label>' :
                         '<label class="label label-danger">No publicado</label>'
                 )}</td>
                 <td>${rec.pnt_date || ''}</td>
-                <td>${rec.pnt_version || ''}</td>
+                <td>${rec.pnt_version || ''}</td>-->
                 <td class="text-center">
-                    <div class="btn-group" style="width:300px">
+                    <div class="btn-group" style="width:250px">
                         <button class="btn btn-primary" type="button" data-validate>Validar</button>
                         <button class="btn btn-primary" type="button" data-edit>Editar</button>
                         ${(rec.valid && (!rec.published || rec.updated) ? '<button class="btn btn-primary" type="button" data-publish>Publicar</button>' : '')}
-                        ${(rec.published && rec.published_version !== rec.pnt_version && rec.data_pnt ? '<button class="btn btn-primary" type="button" data-pnt>Enviar a PNT</button>' : '')}
-                        ${(rec.published && rec.published_version !== rec.pnt_version && !rec.data_pnt && !rec.updated ? '<button class="btn btn-primary" type="button" data-data_pnt>Datos PNT</button>' : '')}
+                        <!--${(rec.published && rec.published_version !== rec.pnt_version && rec.data_pnt ? '<button class="btn btn-primary" type="button" data-pnt>Enviar a PNT</button>' : '')}
+                        ${(rec.published && rec.published_version !== rec.pnt_version && !rec.data_pnt && !rec.updated ? '<button class="btn btn-primary" type="button" data-data_pnt>Datos PNT</button>' : '')}-->
                         
                     </div>
                 </td>
