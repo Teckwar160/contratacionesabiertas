@@ -350,6 +350,7 @@ function release(db) {
             }),
             procurementMethod: tender.procurementmethod,
             procurementMethodDetails: tender.procurementmethod_details,
+            procedurecharacter: tender.procedurecharacter,
             procurementMethodRationale: tender.procurementmethod_rationale,
             mainProcurementCategory: tender.mainprocurementcategory,
             additionalProcurementCategories: (() => {

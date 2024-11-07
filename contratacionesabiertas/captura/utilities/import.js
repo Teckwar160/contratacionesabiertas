@@ -229,6 +229,7 @@ function Import(contractingproessid, database, numberStage, registerid) {
             },
             procurementMethod: 'procurementmethod',
             procurementMethodDetails: 'procurementmethod_details',
+            procedurecharacter: 'procedurecharacter',
             mainProcurementCategory: 'mainprocurementcategory',
             procurementMethodRationale: async (relationale, result) => {
                 let justificacion = justificaciones[result.procurementmethod_details];
