@@ -528,7 +528,8 @@ function release(db) {
                 })[0],
                 amendments: amendments[contract.id],
                 surveillanceMechanisms: contract.surveillancemechanisms ? [contract.surveillancemechanisms] : undefined,
-                guarantees: guarantees[contract.id]
+                guarantees: guarantees[contract.id],
+                exchangerate_amount: contract.exchangerate_amount
             })
         });
         }

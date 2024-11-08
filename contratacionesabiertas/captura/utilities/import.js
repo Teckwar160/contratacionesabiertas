@@ -366,6 +366,7 @@ function Import(contractingproessid, database, numberStage, registerid) {
             title: 'title',
             description: 'description',
             status: 'status',
+            exchangerate_amount: 'exchangerate_amount',
             period: {
                 startDate: 'period_startdate',
                 endDate: 'period_enddate'
