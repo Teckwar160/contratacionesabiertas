@@ -988,11 +988,11 @@ function release(db) {
             }),
             quantity: item.quantity,
             unit: clean({
-                name: item.unit_name,
+                unit_name: item.unit_name,
                 value: clean({
-                    amount: parseFloat(item.unit_value_amount),
-                    netAmount: parseFloat(item.unit_value_amountnet),
-                    currency: item.unit_value_currency
+                    unit_value_amount: parseFloat(item.unit_value_amount),
+                    unit_value_amountnet: parseFloat(item.unit_value_amountnet),
+                    unit_value_currency: item.unit_value_currency
                 })
             }),
             deliveryLocation: clean({

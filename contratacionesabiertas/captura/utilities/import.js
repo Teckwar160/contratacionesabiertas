@@ -616,10 +616,12 @@ function Import(contractingproessid, database, numberStage, registerid) {
             },
             quantity: 'quantity',
             unit: {
-                name: 'unit_name',
-                netAmount: 'unit_value_amountNet',
-                amount: 'unit_value_amount',
-                currency: 'unit_value_currency'
+                value: {
+                    unit_name: 'unit_name',
+                    unit_value_amount: 'unit_value_amount',
+                    unit_value_amountnet: 'unit_value_amountnet',
+                    unit_value_currency: 'unit_value_currency'
+                }  
             },
             deliveryLocation: {
                 geometry: {
