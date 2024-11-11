@@ -509,7 +509,8 @@ CREATE TABLE public.budgetclassifications (
     modified numeric,
     executed numeric,
     committed numeric,
-    approved numeric
+    approved numeric,
+    trimester integer
 );
 
 
@@ -3142,7 +3143,7 @@ COPY public.budgetbreakdown (id, contractingprocess_id, planning_id, budgetbreak
 -- Data for Name: budgetclassifications; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.budgetclassifications (id, budgetbreakdown_id, year, branch, responsibleunit, finality, function, subfunction, institutionalactivity, budgetprogram, spendingobject, spendingtype, budgetsource, region, portfoliokey, cve, branch_description, responsibleunit_description, finality_description, function_description, subfunction_description, institutionalactivity_description, budgetprogram_description, spendingobject_description, spendingtype_description, budgetsource_description, region_description, portfoliokey_description) FROM stdin;
+COPY public.budgetclassifications (id, budgetbreakdown_id, year, branch, responsibleunit, finality, function, subfunction, institutionalactivity, budgetprogram, spendingobject, spendingtype, budgetsource, region, portfoliokey, cve, branch_description, responsibleunit_description, finality_description, function_description, subfunction_description, institutionalactivity_description, budgetprogram_description, spendingobject_description, spendingtype_description, budgetsource_description, region_description, portfoliokey_description, trimester) FROM stdin;
 \.
 
 
