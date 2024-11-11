@@ -773,6 +773,12 @@ function Import(contractingproessid, database, numberStage, registerid) {
                     amount: 'quantity',
                     classification: {
                         id: 'item'
+                    },
+                    unit: {
+                        name: 'item',
+                        value: {
+                            amount: 'quantity'
+                        }
                     }
                 }, { 
                     quotes_id: quote.id 
