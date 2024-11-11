@@ -3200,8 +3200,8 @@ router.post('/editbudgetbreakdown-fields', isAuthenticated,async function (req, 
 router.post('/new-budgetclassification', isAuthenticated, async function (req, res) {
     let query = `insert into $1~ (budgetbreakdown_id, year, branch, responsibleunit, finality, function, subfunction, institutionalactivity, budgetprogram, spendingobject, spendingtype, budgetsource, 
         region, portfoliokey, cve, branch_description, responsibleunit_description, finality_description, function_description, subfunction_description, institutionalactivity_description, 
-        budgetprogram_description, spendingobject_description, spendingtype_description, budgetsource_description, region_description, portfoliokey_description)
-        values ($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28) returning id`;
+        budgetprogram_description, spendingobject_description, spendingtype_description, budgetsource_description, region_description, portfoliokey_description, trimester)
+        values ($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29) returning id`;
 
     let cve = `${(req.body.year || '').toString()}${(req.body.branch || '')}${(req.body.responsibleunit || '')}${(req.body.finality || '')}${(req.body.function || '')}${(req.body.subfunction || '')}${(req.body.institutionalactivity || '')}${(req.body.budgetprogram || '')}${(req.body.spendingobject || '')}${(req.body.spendingtype || '')}${(req.body.budgetsource || '')}${(req.body.region || '')}${(req.body.portfoliokey || '')}`;
 
@@ -3234,7 +3234,8 @@ router.post('/new-budgetclassification', isAuthenticated, async function (req, r
             req.body.spendingtype_description,
             req.body.budgetsource_description,
             req.body.region_description,
-            req.body.portfoliokey_description
+            req.body.portfoliokey_description,
+            req.body.trimester
         ]);
     }).then(async function (data) {
         await db_conf.edca_db.one(`update budgetbreakdown set budgetbreakdown_id = (select string_agg(cve, ',') from budgetclassifications where budgetbreakdown_id = $1) where id = $1 returning id`, [req.body.budget_id]);
@@ -3278,7 +3279,7 @@ router.post('/edit-budgetclassification', isAuthenticated, async function (req, 
     let query = `update $1~ set year = $3, branch = $4, responsibleunit = $5, finality = $6, function = $7, subfunction = $8, institutionalactivity = $9, budgetprogram = $10,
         spendingobject = $11, spendingtype = $12, budgetsource = $13, region = $14, portfoliokey = $15, cve = $16, branch_description = $17, responsibleunit_description = $18, finality_description = $19,
         function_description = $20, subfunction_description = $21, institutionalactivity_description = $22, budgetprogram_description = $23, spendingobject_description = $24,
-        spendingtype_description = $25, budgetsource_description = $26, region_description = $27, portfoliokey_description = $28 where id = $2 returning id`;
+        spendingtype_description = $25, budgetsource_description = $26, region_description = $27, portfoliokey_description = $28, trimester = $29 where id = $2 returning id`;
     
     let cve = `${(req.body.year || '').toString()}${(req.body.branch || '')}${(req.body.responsibleunit || '')}${(req.body.finality || '')}${(req.body.function || '')}${(req.body.subfunction || '')}${(req.body.institutionalactivity || '')}${(req.body.budgetprogram || '')}${(req.body.spendingobject || '')}${(req.body.spendingtype || '')}${(req.body.budgetsource || '')}${(req.body.region || '')}${(req.body.portfoliokey || '')}`;
 
@@ -3311,7 +3312,8 @@ router.post('/edit-budgetclassification', isAuthenticated, async function (req, 
             req.body.spendingtype_description,
             req.body.budgetsource_description,
             req.body.region_description,
-            req.body.portfoliokey_description
+            req.body.portfoliokey_description,
+            req.body.trimester
         ]);
     }).then(async function (data) {
         await db_conf.edca_db.one(`update budgetbreakdown set budgetbreakdown_id = (select string_agg(cve, ',') from budgetclassifications where budgetbreakdown_id = $1) where id = $1 returning id`, [req.body.budget_id]);
