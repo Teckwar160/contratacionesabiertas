@@ -843,6 +843,7 @@ function Import(contractingproessid, database, numberStage, registerid) {
                                 case 'spendingType': result.spendingtype = component.code; break;
                                 case 'budgetSource': result.budgetsource = component.code; break;
                                 case 'region': result.region = component.code; break;
+                                case 'trimester': result.trimester = component.code; break;
                             }
                         });
                     },
@@ -882,7 +883,8 @@ function Import(contractingproessid, database, numberStage, registerid) {
                         'modifiedamount = ${modified}',
                         'executedamount = ${executed}',
                         'committedamount = ${committed}',
-                        'reservedamount = ${reserved}'
+                        'reservedamount = ${reserved}',
+                        'trimester = ${trimester}'
                     ];
 
                     record.branch = record.branch || '';
