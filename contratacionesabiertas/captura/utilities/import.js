@@ -83,6 +83,9 @@ function Import(contractingproessid, database, numberStage, registerid) {
                         ocid: async (ocid, result) => {
                             // impedir que se repitan los ocid
                             result.ocid = await uniqueOcid(ocid);
+                        },
+                        stage: async (stage, result) => {
+                            result.stage = stage;
                         }
                     }, { id: cpid }, [json]);
                 }

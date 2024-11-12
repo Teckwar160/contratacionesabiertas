@@ -167,6 +167,7 @@ function release(db) {
         cp.date_modified = new Date();
 
         cp = clean({
+            stage: cp.stage,
             ocid: cp.ocid,
             id: this._ocidname,
             date: moment(cp.date_modified).format(),
