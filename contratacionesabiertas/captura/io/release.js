@@ -864,7 +864,7 @@ function release(db) {
             addComponent('spendingType', ps, components);
             addComponent('budgetSource', ps, components);
             addComponent('region', ps, components);
-            addComponent('trimester', ps, componentes);
+            addComponent('trimester', ps, components);
             let ms = clean({
                 components: components,
                 measures: buildMeasures(ps, x.currency)
